@@ -1,0 +1,18 @@
+{
+  "task": "auto",
+  "input": {
+    "path": "samples\\images\\aerial_image_4.jpg"
+  },
+  "model": {
+    "name": "yolo26l-obb.pt",
+    "conf": 0.45
+  },
+  "params": {
+    "device": "cuda",   
+    "sahi_slice_size": 512,
+    "sahi_overlap": 0.15
+  },
+  "output": {
+    "save_annotated": true
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "task": "auto",
+  "input": {
+    "path": "samples\\videos\\video_1.mp4"
+  },
+  "model": {
+    "name": "yolo26m.pt",
+    "conf": 0.50,
+    "iou": 0.45
+  },
+  "params": {
+    "device":"cuda",
+    "pixels_per_meter": 0.05,
+    "resize_to": 1280
+  },
+  "output": {
+    "save_video": true
+  }
+}
