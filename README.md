@@ -33,7 +33,7 @@ A unified computer vision system for **Aerial Image Analysis** and **Realtime vi
 
 Sample image and video provided in sample folder.
 
-# 0. Use your own image or video data.
+### 0. Use your own image or video data.
 In jobs/ folder
 - replace with your image in aerial_demo.json
     ```
@@ -48,24 +48,24 @@ In jobs/ folder
         }
     ```
   
-# 1. Clone the repository (first time only)
+### 1. Clone the repository (first time only)
 ```bash
 git clone https://github.com/yourusername/percept_os.git
 cd percept_os
 ```
 
-# 2. Create virtual environment (recommended)
+### 2. Create virtual environment (recommended)
 ```bash
 python -m venv venv
 venv\Scripts\activate
 ```
 
-# 3. Install the project (this installs all dependencies from pyproject.toml)
+### 3. Install the project (this installs all dependencies from pyproject.toml)
 ```bash
 pip install -e .
 ```
 
-# 4. Run the Pipeline
+### 4. Run the Pipeline
 ```bash
 # Realtime
 python -m percept_os.run jobs/edge_demo.json
