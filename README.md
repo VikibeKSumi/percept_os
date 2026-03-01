@@ -34,16 +34,21 @@ Built with simplicity and performance in mind, it is perfect for learning system
 
 ### 📈 Performance Metrics
 
-**Aerial Pipeline** (14 metrics)
-- Total images, Total detections, Avg detections per image
-- Confidence (avg/min/max), Detections per class
-- SAHI tiles usage, Time per image, Effective FPS, Peak GPU memory
+Percept_OS automatically tracks rich, professional metrics for both pipelines. All results are saved in the `runs/` folder for every execution.
 
-**Realtime Pipeline** (12 metrics)
-- Avg FPS, Avg inference time, Unique tracked objects
-- ID switches, Avg speed (km/h), Peak GPU memory, etc.
+#### Aerial Pipeline
+- **Performance**: Total images, Time per image, Effective FPS
+- **Detection Quality**: Total detections, Avg detections per image, Confidence (avg/min/max)
+- **SAHI Analysis**: Total tiles used, Avg tiles per image
+- **Scene Understanding**: Detections per class, Number of unique classes
+- **Resource Usage**: Peak GPU memory
 
-All metrics are automatically saved in every run folder.
+#### Realtime Pipeline
+- **Performance**: Average FPS, Inference time per frame, Total frames
+- **Detection Quality**: Average / Min / Max confidence, Detections per frame
+- **Tracking Quality**: Unique objects tracked, ID switches
+- **Movement**: Average object speed (km/h)
+- **Resource Usage**: Peak GPU memory
 
 ---
 
