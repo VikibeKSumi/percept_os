@@ -51,7 +51,7 @@ All metrics are automatically saved in every run folder.
 
 All important parameters are controlled from JSON files.
 
-#### Aerial (`jobs/aerial_demo.json`)
+#### Aerial default (`jobs/aerial_demo.json`)
 ```json
     "model": {
     "name": "yolo26l-obb.pt",
@@ -63,7 +63,7 @@ All important parameters are controlled from JSON files.
     "sahi_overlap": 0.15
     }
 ```
-#### Realtime (`jobs/edge_demo.json`)
+#### Realtime default (`jobs/edge_demo.json`)
 ```JSON
     "model": {
     "name": "yolo26m.pt",
@@ -79,24 +79,24 @@ All important parameters are controlled from JSON files.
 
 ### 🚀 How to Run
 
-1. Clone the Repository
+#### 1. Clone the Repository
 ```Bash
     git clone https://github.com/yourusername/percept_os.git
     cd percept_os
 ```
 
-2. Create Virtual Environment and activate it (Recommended)
+#### 2. Create Virtual Environment and activate it (Recommended)
 ```Bash
     python -m venv venv
     venv\Scripts\activate
 ```
 
-3. Install Dependencies
+#### 3. Install Dependencies
 ```Bash
     pip install -e .
 ```
 
-4. Add Your Own Image or Video
+#### 4. Add Your Own Image or Video
 
 For Aerial (Images):
 Edit jobs/aerial_demo.json and put your image path:
@@ -107,24 +107,24 @@ Edit jobs/aerial_demo.json and put your image path:
 ```
 
 For Realtime (Video / Webcam):
-Edit jobs/edge_demo.json:
+Edit jobs/edge_demo.json and put your video path:
 ```JSON
     "input": {
-    "path": "samples/--HERE--.mp4"     // ← your video file
+    "path": "samples/--HERE--.mp4"     // ← your video file; use '0' for webcam
     }
 ```
 
-5. Install dependencies
+#### 5. Install dependencies
 ```bash
     pip install -e .
 ```
 
-6. Run Realtime (webcam or video)
+#### 6. Run Realtime (webcam or video)
 ```Bash
     python -m percept_os.run jobs/edge_demo.json
 ```
 
-7. Run Aerial (single image or folder)
+#### 7. Run Aerial (single image or folder)
 ```Bash
     python -m percept_os.run jobs/aerial_demo.json
 ```
@@ -146,7 +146,7 @@ textpercept_os/
 └── models/                   # Auto-downloaded YOLO models
 ```
 
-### Future Roadmap
+### 🛣 Future Roadmap
 - Model fine-tuning guide (for better people/animal detection in aerial)
 - Instance & semantic segmentation support
 - Multi-camera / multi-stream realtime
