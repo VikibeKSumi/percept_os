@@ -1,23 +1,26 @@
 ﻿from pathlib import Path
-import cv2
+import time
+import torch
 import numpy as np
+
+import cv2
 import supervision as sv
+from ultralytics import YOLO
 from sahi import AutoDetectionModel
 from sahi.predict import get_sliced_prediction
 from sahi.utils.cv import read_image
-import time
-import torch
+
 
 
 def run(job: dict, ctx: dict) -> dict:
     """
     Aerial Pipeline - High-resolution image detection using SAHI + YOLO26
     """
-    logger = ctx["logger"]
+    logger.info("Starting AERIAL pipeline (SAHI + YOLO26)")
+
+    logger =    ["logger"]
     paths = ctx["paths"]
     timer = ctx["timer"]
-
-    logger.info("Starting AERIAL pipeline (SAHI + YOLO26)")
 
     # ===================== CONFIG =====================
     model_name = job.get("model", {}).get("name", "yolo26m.pt")
@@ -27,32 +30,45 @@ def run(job: dict, ctx: dict) -> dict:
     params = job.get("params", {})
     slice_size = params.get("sahi_slice_size", 512)
     overlap = params.get("sahi_overlap", 0.10)
-    device = params.get("device", "cuda")
+    device = params.get("device", "cpu")
 
     logger.info(f"Model: {model_name} | Device: {device.upper()}")
     logger.info(f"SAHI: {slice_size}x{slice_size} tiles | Overlap: {int(overlap*100)}% | Conf: {conf}")
 
     # ===================== MODEL LOADING =====================
-    if not Path(model_name).exists():
-        logger.info(f"Downloading {model_name}... (first time only)")
+    # Create models folder if it doesn't exist
+    models_dir = Path("models")
+    models_dir.mkdir(exist_ok=True)
+
+    # Final path where model should be
+    model_path = models_dir / model_name
+
+    # Download to our models/ folder if missing
+    if not model_path.exists():
+        logger.info(f"Downloading {model_name} → models/ folder (first time only)")
+        temp_model = YOLO(model_name)           # downloads from Ultralytics
+        temp_model.save(str(model_path))
+
+    logger.info(f"Using model: {model_path}")       
 
     # SAHI wrapper for YOLO
     detection_model = AutoDetectionModel.from_pretrained(
         model_type="yolov8",
-        model_path=model_name,
+        model_path=str(model_path),
         confidence_threshold=conf,
         device=device,
     )
 
     # ===================== SOURCE PREPARATION / LOAD ALL IMAGES (BATCH) =====================
-    source = job.get("input", {}).get("source") or job.get("input", {}).get("path")
+    source = job.get("input", {}).get("path")
     if not source:
         raise ValueError("No source provided in job.input")
 
     source_path = Path(source)
     # If it's a folder → batch mode (this is the key part)
     image_paths = [source_path] if source_path.is_file() else \
-                  list(source_path.glob("*.jpg")) + list(source_path.glob("*.jpeg")) + list(source_path.glob("*.png"))
+                list(source_path.glob("*.jpg")) + list(source_path.glob("*.jpeg")) + \
+                list(source_path.glob("*.png")) + list(source_path.glob("*.avif"))
 
     if not image_paths:
         raise ValueError(f"No valid images found in {source}")

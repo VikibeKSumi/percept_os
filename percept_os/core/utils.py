@@ -46,10 +46,10 @@ def detect_pipeline_type(input_config: dict) -> str:
         target = str(source).lower().strip()
     else:
         target = str(path).lower().strip()
-
+    
     # Realtime / edge_road cases
     if any(x in target for x in ["rtsp://", "http://", "0", ".mp4", ".avi", ".mov", ".mkv"]):
-        return "edge_road"
+        return "real_time"
 
     # Everything else = aerial (images)
     return "aerial_space"

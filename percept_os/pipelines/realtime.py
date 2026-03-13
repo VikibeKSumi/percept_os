@@ -27,9 +27,21 @@ def run(job: dict, ctx: dict) -> dict:
     logger.info(f"Input: {input_path} | Device: {device.upper()} | Resize: {resize_to or 'Original'}")
 
     # ===================== LOAD MODEL =====================
-    if not Path(model_name).exists():
-        logger.info(f"Downloading {model_name}...")
-    model = YOLO(model_name).to(device)
+    model_path = Path(model_name)
+
+    # Create models folder if it doesn't exist
+    models_dir = Path("models")
+    models_dir.mkdir(exist_ok=True)
+
+    # Final path where model should be
+    model_path = models_dir / model_name
+
+    if not model_path.exists():
+        logger.info(f"Downloading {model_name}... (first time only)")
+        temp_model = YOLO(model_name).save(str(model_path))
+
+    logger.info(f"Using model: {model_path}")
+    model = YOLO(str(model_path)).to(device)
 
     # ===================== SETUP =====================
     byte_tracker = sv.ByteTrack(

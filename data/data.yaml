@@ -1,0 +1,13 @@
+train: ../train/images
+val: ../valid/images
+test: ../test/images
+
+nc: 7
+names: ['bus', 'car', 'giraffe', 'mini van', 'person', 'pickup', 'truck']
+
+roboflow:
+  workspace: vikibes-workspace
+  project: aerial-obb
+  version: 2
+  license: CC BY 4.0
+  url: https://universe.roboflow.com/vikibes-workspace/aerial-obb/dataset/2

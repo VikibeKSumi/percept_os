@@ -16,12 +16,13 @@ def main(argv: list[str]) -> int:
         return 2
 
     job_path = argv[1]
+  
     data = json.loads(Path(job_path).read_text(encoding="utf-8"))
 
     # Auto detect task if "auto"
     if data.get("task") in (None, "auto", ""):
         data["task"] = detect_pipeline_type(data.get("input", {}))
-
+    
     job = data  # simple dict now
 
     paths = new_run_paths("runs")
@@ -40,7 +41,7 @@ def main(argv: list[str]) -> int:
     try:
         if job.get("task") == "aerial_space":
             result = aerial_run(job, ctx)
-        elif job.get("task") == "edge_road":
+        elif job.get("task") == "real_time":
             result = realtime_run(job, ctx)
         else:
             raise ValueError(f"Unknown task: {job.get('task')}")
@@ -50,6 +51,7 @@ def main(argv: list[str]) -> int:
             "elapsed_ms": round(timer.ms(), 3),
             "status": "success"
         }
+        
         write_json(paths.metrics_json, {"metrics": metrics, "result": result or {}})
 
         logger.ok(f"✅ Done in {metrics['elapsed_ms']} ms")

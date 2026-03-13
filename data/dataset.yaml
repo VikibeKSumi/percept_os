@@ -1,0 +1,8 @@
+path: C:/Users/vikib/Documents/ai_projects/percept_os/data
+
+train: train/images
+val: valid/images
+test: test/images
+
+nc: 7
+names: ['bus', 'car', 'giraffe', 'mini van', 'person', 'pickup', 'truck']

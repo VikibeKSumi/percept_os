@@ -119,17 +119,12 @@ Edit jobs/edge_demo.json and put your video path:
     }
 ```
 
-#### 5. Install dependencies
-```bash
-    pip install -e .
-```
-
-#### 6. Run Realtime (webcam or video)
+#### 5. Run Realtime (webcam or video)
 ```Bash
     python -m percept_os.run jobs/edge_demo.json
 ```
 
-#### 7. Run Aerial (single image or folder)
+#### 6. Run Aerial (single image or folder)
 ```Bash
     python -m percept_os.run jobs/aerial_demo.json
 ```

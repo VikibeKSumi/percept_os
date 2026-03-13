@@ -208,9 +208,15 @@ __marimo__/
 
 
 #percept_os
+percept_os.egg-info/
+data/test
+data/train
+data/valid
 runs/
 samples/
 *.mp4
 *.avi
 *.mov
 *.pt
+
+

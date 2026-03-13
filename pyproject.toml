@@ -7,12 +7,12 @@ requires-python = ">=3.11"
 dependencies = [
     "pydantic>=2.9",
     "rich>=13.0",
-    "ultralytics>=8.3.0",      # YOLO11
-    "sahi>=0.11.0",            # SAHI tiling for aerial
-    "supervision>=0.25.0",     # tracking + annotation
-    "opencv-python>=4.8.0",    # cv2 (includes GUI for imshow)
-    "Pillow>=10.0.0",          # used by SAHI
-    "tqdm>=4.65.0",            # progress bars
+    "ultralytics>=8.3.0",
+    "sahi>=0.11.0",
+    "supervision>=0.25.0",
+    "opencv-python>=4.8.0",
+    "Pillow>=10.0.0",
+    "tqdm>=4.65.0",
     "psutil>=6.0",
     "onnxruntime>=1.19",
 ]
